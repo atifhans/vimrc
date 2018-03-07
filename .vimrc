@@ -12,7 +12,6 @@ Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 " MY-OWN-PLUGINS
 Plugin 'tmhedberg/SimpylFold'
 Plugin 'vim-scripts/indentpython.vim'
-Plugin 'Valloric/YouCompleteMe'
 Plugin 'nvie/vim-flake8'
 Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
@@ -33,29 +32,40 @@ Plugin 'vim-ctrlspace/vim-ctrlspace'
 Plugin 'ervandew/ag'
 Plugin 'tmhedberg/matchit'
 Plugin 'vim-syntastic/syntastic'
+Plugin 'dracula/vim'
+Plugin 'mtikekar/vim-bsv'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
 
 " MY-OWN-CONFIG
+set showtabline=1
+set guifont=Source\ Code\ Pro\ for\ Powerline
 syntax on
+" color dracula
 set number
 set encoding=utf-8
 " set clipboard=unnamed
 set backspace=2
 set hls
 set incsearch
-set spell
+" set spell
 let NERDTreeIgnore=['\.pyc$', '\~$'] " ignore files in NERDTree
 let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 if executable("ag")
     let g:CtrlSpaceGlobCommand = 'ag -l --nocolor -g ""'
 endif
 set hidden
-set showtabline=0
+" set showtabline=0
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 let g:ctrlp_root_markers = ['package.json']
+
+if has('gui_running')
+    color dracula
+    set guioptions-=m
+    set guioptions-=T
+endif
 
 " Syntastic ------------------------------
 nmap <leader>e :Errors<CR>
@@ -146,29 +156,8 @@ let g:NERDTreeIndicatorMapCustom = {
 " ACK
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
-" checker
-let g:syntastic_javascript_checkers=['eslint']
-set errorbells 
-
 " On Pressing tab, insert spaces
 set expandtab
-au BufNewFile,BufRead *.py 
-			\  set tabstop=4 
-			\| set softtabstop=4 
-			\| set shiftwidth=4 
-au BufNewFile,BufRead *.js 
-			\  set tabstop=2 
-			\| set softtabstop=2 
-			\| set shiftwidth=2
-au BufNewFile,BufRead *.vue
-			\  set tabstop=2 
-			\| set softtabstop=2 
-			\| set shiftwidth=2
-au BufNewFile,BufRead *.rb 
-			\  set tabstop=2 
-			\| set softtabstop=2 
-			\| set shiftwidth=2
-au BufNewFile,BufRead *.html
-			\  set tabstop=2 
-			\| set softtabstop=2 
-			\| set shiftwidth=2
+set tabstop=4 
+set softtabstop=4 
+set shiftwidth=4 
