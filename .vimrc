@@ -10,9 +10,7 @@ Plugin 'git://git.wincent.com/command-t.git'
 Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 
 " MY-OWN-PLUGINS
-Plugin 'tmhedberg/SimpylFold'
 Plugin 'vim-scripts/indentpython.vim'
-Plugin 'nvie/vim-flake8'
 Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
@@ -22,17 +20,16 @@ Plugin 'easymotion/vim-easymotion'
 Plugin 'Lokaltog/vim-powerline'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'tpope/vim-commentary'
-Plugin 'posva/vim-vue'
-Plugin 'cakebaker/scss-syntax.vim'
-Plugin 'mattn/emmet-vim'
-Plugin 'hail2u/vim-css3-syntax'
-Plugin 'tpope/vim-surround'
-Plugin 'FelikZ/ctrlp-py-matcher'
-Plugin 'vim-ctrlspace/vim-ctrlspace'
-Plugin 'ervandew/ag'
 Plugin 'tmhedberg/matchit'
-Plugin 'vim-syntastic/syntastic'
 Plugin 'dracula/vim'
+
+" MY-PLUGINS
+Plugin 'vim-scripts/vim-systemverilog'
+Plugin 'vim-scripts/verilog_emacsauto.vim'
+Plugin 'vim-scripts/AutoComplPop'
+Plugin 'vim-scripts/Align'
+Plugin 'vim-scripts/LargeFile'
+Plugin 'vim-scripts/molokai'
 Plugin 'mtikekar/vim-bsv'
 
 " All of your Plugins must be added before the following line
@@ -43,14 +40,12 @@ filetype plugin indent on    " required
 set showtabline=1
 set guifont=Source\ Code\ Pro\ for\ Powerline
 syntax on
-" color dracula
 set number
 set encoding=utf-8
-" set clipboard=unnamed
-set backspace=2
+"set clipboard=unnamed "Yank and paste with the system clipboard
+"set backspace=2
 set hls
 set incsearch
-" set spell
 let NERDTreeIgnore=['\.pyc$', '\~$'] " ignore files in NERDTree
 let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 if executable("ag")
@@ -61,31 +56,43 @@ set hidden
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 let g:ctrlp_root_markers = ['package.json']
 
+set autoindent
+set autoread
+
+" As most of the stuff is in git anyway
+set nobackup
+set nowb
+set noswapfile
+
+" Use persistent undo when available
+if has("persistent_undo")
+   set undodir=~/.vim/undo/
+   set undofile
+endif
+
+" Yank to clipboard by default
+if has('unnamedplus')
+   set clipboard=unnamedplus
+else
+   set clipboard=unnamed
+endif
+
+set visualbell
+set backspace=indent,eol,start
+
+" Enable wildmenu completion
+set wildmenu
+set wildmode=list:longest
+" patterns to ignore during file-navigation
+set wildignore+=.git,.svn,.sass-cache
+
+color molokai 
+
 if has('gui_running')
     color dracula
     set guioptions-=m
     set guioptions-=T
 endif
-
-" Syntastic ------------------------------
-nmap <leader>e :Errors<CR>
-nmap <leader>n :lnext<CR>
-nmap <leader>p :lprevious<CR>
-let g:syntastic_check_on_open = 1
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_enable_signs = 0
-let g:syntastic_error_symbol = '✗'
-let g:syntastic_warning_symbol = '⚠'
-let g:syntastic_style_error_symbol = '✗'
-let g:syntastic_style_warning_symbol = '⚠'
-
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
 
 " quick command in insert mode
 inoremap II <Esc>I
@@ -103,13 +110,6 @@ nnoremap <C-H> <C-W><C-H>
 " insert new line with staying with normal mode
 nnoremap <CR> o<Esc>
 nnoremap <S-CR> o<Esc>k
-
-" Enable folding
-set foldmethod=indent
-set foldlevel=99
-" Enable folding with the spacebar
-" nnoremap <space> za
-let g:SimpylFold_docstring_preview=1
 
 " Force the cursor onto a new line after 80 characters
 set textwidth=80
@@ -158,6 +158,6 @@ let g:ackprg = 'ag --nogroup --nocolor --column'
 
 " On Pressing tab, insert spaces
 set expandtab
-set tabstop=4 
-set softtabstop=4 
-set shiftwidth=4 
+set tabstop=3 
+set softtabstop=3 
+set shiftwidth=3 
