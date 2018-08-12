@@ -7,12 +7,10 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'git://git.wincent.com/command-t.git'
-Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 
 " MY-OWN-PLUGINS
 Plugin 'vim-scripts/indentpython.vim'
 Plugin 'scrooloose/nerdtree'
-Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'mileszs/ack.vim'
@@ -38,7 +36,7 @@ filetype plugin indent on    " required
 
 " MY-OWN-CONFIG
 set showtabline=1
-set guifont=Source\ Code\ Pro\ for\ Powerline
+set guifont=Source\ Code\ Pro\ 9
 syntax on
 set number
 set encoding=utf-8
@@ -89,7 +87,7 @@ set wildignore+=.git,.svn,.sass-cache
 color molokai 
 
 if has('gui_running')
-    color dracula
+    color molokai 
     set guioptions-=m
     set guioptions-=T
 endif
@@ -130,16 +128,16 @@ function! NumberToggle()
 endfunc
 
 nnoremap <C-n> :call NumberToggle()<cr>
-" autocmd FocusLost * :set nornu
-" autocmd FocusGained * :set rnu
-" autocmd InsertEnter * :set nornu
-" autocmd InsertLeave * :set rnu
+autocmd FocusLost * :set nornu
+autocmd FocusGained * :set rnu
+autocmd InsertEnter * :set nornu
+autocmd InsertLeave * :set rnu
 
 nnoremap <silent><leader>p :CtrlSpace<CR>
 
 " NERDTree
-nnoremap <space>t :NERDTreeMirrorToggle<CR>
-map <F2> :NERDTreeMirrorToggle<CR>
+nnoremap <space>t :NERDTreeToggle<CR>
+map <F2> :NERDTreeToggle<CR>
 " NERDTree GIT
 let g:NERDTreeIndicatorMapCustom = {
     \ "Modified"  : "✹",
