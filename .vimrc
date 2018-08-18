@@ -20,8 +20,9 @@ Plugin 'Lokaltog/vim-powerline'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'tpope/vim-commentary'
 Plugin 'tmhedberg/matchit'
-Plugin 'dracula/vim'
 Plugin 'nathanaelkane/vim-indent-guides'
+Plugin 'vim-scripts/automatic-for-verilog'
+Plugin 'yggdroot/indentLine'
 
 Plugin 'vim-scripts/vim-systemverilog'
 Plugin 'vim-scripts/verilog_emacsauto.vim'
@@ -46,8 +47,8 @@ set hidden
 set autoindent
 set autoread
 
-set list    " show trailing whitespace
-set listchars=tab:▸\ ,trail:▫
+set listchars=tab:\>\ ,trail:.,extends:>,precedes:<
+nmap <leader> :set list!<CR>
 
 " On Pressing tab, insert spaces
 set expandtab
@@ -72,11 +73,14 @@ set wildignore+=.git,.svn,.sass-cache
 color molokai
 
 if has('gui_running')
-    set anti enc=utf-8
-    set guifont=Source\ Code\ Pro:h11
-    color molokai
-    set guioptions-=m
-    set guioptions-=T
+   if('mac')
+     set guifont=Source\ Code\ Pro:h11
+   elseif('unix')
+     set guifont=Source\ Code\ Pro\ 9
+   endif
+   color molokai
+   set guioptions-=m
+   set guioptions-=T
 endif
 
 " Use persistent undo when available
@@ -98,6 +102,8 @@ endif
 let NERDTreeIgnore=['\.pyc$', '\~$'] " ignore files in NERDTree
 nnoremap <space>t :NERDTreeToggle<CR>
 map <F2> :NERDTreeToggle<CR>
+let g:NERDTreeShowHidden=1
+
 " NERDTree GIT
 let g:NERDTreeIndicatorMapCustom = {
     \ "Modified"  : "✹",
